@@ -36,3 +36,5 @@ Se quiser, posso também:
 ---
 
 Feito com HTML, CSS e JavaScript.
+
+<!-- build-trigger: atualizacao para reconstruir GitHub Pages -->
