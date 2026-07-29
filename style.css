@@ -1,0 +1,166 @@
+/* Estilos principais do projeto */
+:root {
+  --bg: #f6f8ff;
+  --surface: #ffffff;
+  --surface-strong: #eef2ff;
+  --text: #1f2937;
+  --text-muted: #475569;
+  --brand: #6366f1;
+  --brand-dark: #4338ca;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #eef2ff 0%, #f9fafb 100%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+}
+
+.container {
+  width: min(1100px, 100% - 2rem);
+  margin: 0 auto;
+}
+
+.hero {
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  color: var(--brand-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 3vw, 3.5rem);
+  line-height: 1.05;
+}
+
+p {
+  line-height: 1.7;
+}
+
+main {
+  display: grid;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 1.25rem;
+  padding: 1.8rem;
+  box-shadow: 0 25px 40px rgba(15, 23, 42, 0.05);
+}
+
+.card--accent {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+button,
+input {
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 0.85rem;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+button {
+  background: var(--brand);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  background: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+input {
+  width: 100%;
+  margin-top: 1rem;
+  background: #fff;
+}
+
+.output {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 0.85rem;
+  color: var(--text-muted);
+}
+
+.counter {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
+  height: 8rem;
+  margin-top: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--brand-dark);
+  background: #eef2ff;
+  border-radius: 1.5rem;
+}
+
+.footer {
+  padding: 1.5rem 0 2rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+@media (min-width: 720px) {
+  main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero {
+    padding-top: 4rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .card {
+    padding: 1.4rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
