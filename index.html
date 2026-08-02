@@ -3,49 +3,116 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meu Primeiro Projeto</title>
+    <title>Agenda de Banho Pet Shop</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- deployed-to-github-pages -->
   </head>
   <body>
     <header class="hero">
-      <div class="container">
-        <span class="eyebrow">Projeto HTML, CSS e JavaScript</span>
-        <h1>Meu primeiro projeto interativo</h1>
-        <p>Este projeto usa HTML para estrutura, CSS para estilo e JavaScript para comportamento dinâmico.</p>
+      <div class="container hero__inner">
+        <div class="hero__text">
+          <span class="eyebrow">Agendamento Pet Shop</span>
+          <h1>Agenda de banho e tosa para pets</h1>
+          <p>Cadastre o pet, escolha o serviço e veja o horário agendado com toda clareza. Um site profissional para organizar as atendimentos de banho.</p>
+        </div>
+
+        <div class="hero__image" aria-hidden="true">
+          <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração de cachorro feliz">
+            <defs>
+              <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#f7d391" />
+                <stop offset="100%" stop-color="#f2b66a" />
+              </linearGradient>
+              <linearGradient id="ear" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#d98e58" />
+                <stop offset="100%" stop-color="#c46e3f" />
+              </linearGradient>
+            </defs>
+            <circle cx="180" cy="180" r="160" fill="#f8fafc" />
+            <ellipse cx="180" cy="220" rx="110" ry="115" fill="url(#fur)" />
+            <ellipse cx="130" cy="160" rx="42" ry="58" fill="url(#ear)" />
+            <ellipse cx="230" cy="160" rx="42" ry="58" fill="url(#ear)" />
+            <circle cx="150" cy="190" r="18" fill="#fff" opacity="0.7" />
+            <circle cx="210" cy="190" r="18" fill="#fff" opacity="0.7" />
+            <circle cx="150" cy="190" r="10" fill="#3d3d3d" />
+            <circle cx="210" cy="190" r="10" fill="#3d3d3d" />
+            <path d="M135 240 C150 260, 210 260, 225 240" stroke="#3d3d3d" stroke-width="12" fill="none" stroke-linecap="round" />
+            <path d="M180 225 C175 240, 190 240, 185 225" fill="#fff" />
+            <path d="M145 120 C145 90, 120 80, 100 105 C95 115, 105 135, 120 132" fill="#d98e58" />
+            <path d="M215 120 C215 90, 240 80, 260 105 C265 115, 255 135, 240 132" fill="#d98e58" />
+            <path d="M115 145 C115 135, 105 130, 93 138" stroke="#a15c37" stroke-width="10" fill="none" stroke-linecap="round" />
+            <path d="M245 145 C245 135, 255 130, 267 138" stroke="#a15c37" stroke-width="10" fill="none" stroke-linecap="round" />
+          </svg>
+        </div>
       </div>
     </header>
 
-    <main class="container">
-      <section class="card">
-        <h2>Contador de cliques</h2>
-        <p>Use os botões abaixo para aumentar, diminuir ou zerar o contador.</p>
-        <div class="counter">
-          <span id="count">0</span>
-        </div>
-        <div class="button-row">
-          <button id="decrement">-</button>
-          <button id="increment">+</button>
-          <button id="reset">Zerar</button>
-        </div>
+    <main class="container schedule-layout">
+      <section class="card form-card">
+        <h2>Cadastro de agendamento</h2>
+        <p>Informe os dados do pet e selecione dia e horário para o banho.</p>
+
+        <form id="appointmentForm" class="appointment-form">
+          <div class="field-grid">
+            <label>
+              Nome do pet
+              <input id="petName" type="text" placeholder="Ex: Thor" required />
+            </label>
+            <label>
+              Nome do responsável
+              <input id="ownerName" type="text" placeholder="Ex: Maria" required />
+            </label>
+          </div>
+
+          <label>
+            Serviço
+            <select id="serviceType" required>
+              <option value="">Selecione</option>
+              <option value="Banho">Banho</option>
+              <option value="Tosa">Tosa</option>
+              <option value="Banho + Tosa">Banho + Tosa</option>
+              <option value="Hidratação">Hidratação</option>
+            </select>
+          </label>
+
+          <div class="field-grid">
+            <label>
+              Data
+              <input id="appointmentDate" type="date" required />
+            </label>
+            <label>
+              Horário
+              <input id="appointmentTime" type="time" required />
+            </label>
+          </div>
+
+          <label>
+            Telefone para contato
+            <input id="ownerPhone" type="tel" placeholder="(00) 90000-0000" required />
+          </label>
+
+          <label>
+            Observações
+            <textarea id="notes" rows="4" placeholder="Ex: Pet tem alergia a shampoo comum"></textarea>
+          </label>
+
+          <button type="submit" class="primary-button">Agendar banho</button>
+          <p class="success-message" id="successMessage" hidden>Agendamento registrado com sucesso!</p>
+        </form>
       </section>
 
-      <section class="card">
-        <h2>Mensagem dinâmica</h2>
-        <p>Digite algo no campo e veja a mensagem aparecer abaixo.</p>
-        <input id="messageInput" type="text" placeholder="Escreva aqui..." />
-        <p class="output" id="messageOutput">Sua mensagem aparecerá aqui.</p>
-      </section>
-
-      <section class="card card--accent">
-        <h2>Tema aleatório</h2>
-        <p>Clique no botão para trocar a cor de fundo da página.</p>
-        <button id="themeButton">Mudar tema</button>
+      <section class="card schedule-card">
+        <div class="schedule-header">
+          <h2>Agenda de atendimento</h2>
+          <p>Veja os agendamentos cadastrados na sua agenda de banho.</p>
+        </div>
+        <div id="appointmentList" class="appointment-list">
+          <p class="empty-state">Nenhum agendamento registrado ainda.</p>
+        </div>
       </section>
     </main>
 
     <footer class="footer">
-      <p>Feito com HTML, CSS e JavaScript.</p>
+      <p>Pet Shop Agenda - banho e cuidados com carinho.</p>
     </footer>
 
     <script src="app.js"></script>
