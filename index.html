@@ -3,50 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meu Primeiro Projeto</title>
+    <meta
+      name="description"
+      content="Relógio digital moderno em HTML, CSS e JavaScript puro."
+    />
+    <title>Relógio Digital</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- deployed-to-github-pages -->
   </head>
   <body>
-    <header class="hero">
-      <div class="container">
-        <span class="eyebrow">Projeto HTML, CSS e JavaScript</span>
-        <h1>Meu primeiro projeto interativo</h1>
-        <p>Este projeto usa HTML para estrutura, CSS para estilo e JavaScript para comportamento dinâmico.</p>
-      </div>
-    </header>
+    <main class="clock-screen">
+      <section class="clock-card" aria-label="Relógio digital">
+        <p class="eyebrow">Hora local</p>
 
-    <main class="container">
-      <section class="card">
-        <h2>Contador de cliques</h2>
-        <p>Use os botões abaixo para aumentar, diminuir ou zerar o contador.</p>
-        <div class="counter">
-          <span id="count">0</span>
+        <div class="time" aria-live="polite" aria-atomic="true">
+          <span id="hours">00</span>
+          <span class="separator">:</span>
+          <span id="minutes">00</span>
+          <span class="separator">:</span>
+          <span id="seconds">00</span>
         </div>
-        <div class="button-row">
-          <button id="decrement">-</button>
-          <button id="increment">+</button>
-          <button id="reset">Zerar</button>
+
+        <div class="meta-row">
+          <span id="dateText">Segunda, 11 de agosto de 2026</span>
+          <span id="ampm" class="ampm">AM</span>
         </div>
-      </section>
-
-      <section class="card">
-        <h2>Mensagem dinâmica</h2>
-        <p>Digite algo no campo e veja a mensagem aparecer abaixo.</p>
-        <input id="messageInput" type="text" placeholder="Escreva aqui..." />
-        <p class="output" id="messageOutput">Sua mensagem aparecerá aqui.</p>
-      </section>
-
-      <section class="card card--accent">
-        <h2>Tema aleatório</h2>
-        <p>Clique no botão para trocar a cor de fundo da página.</p>
-        <button id="themeButton">Mudar tema</button>
       </section>
     </main>
-
-    <footer class="footer">
-      <p>Feito com HTML, CSS e JavaScript.</p>
-    </footer>
 
     <script src="app.js"></script>
   </body>

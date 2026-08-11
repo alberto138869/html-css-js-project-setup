@@ -1,54 +1,40 @@
-const countElement = document.getElementById("count");
-const incrementButton = document.getElementById("increment");
-const decrementButton = document.getElementById("decrement");
-const resetButton = document.getElementById("reset");
-const messageInput = document.getElementById("messageInput");
-const messageOutput = document.getElementById("messageOutput");
-const themeButton = document.getElementById("themeButton");
+const hoursElement = document.getElementById("hours");
+const minutesElement = document.getElementById("minutes");
+const secondsElement = document.getElementById("seconds");
+const dateTextElement = document.getElementById("dateText");
+const ampmElement = document.getElementById("ampm");
 
-let count = 0;
-
-function updateCount() {
-  countElement.textContent = count;
-  countElement.style.color = count === 0 ? "#4338ca" : count > 0 ? "#22c55e" : "#ef4444";
+function formatTimePart(value) {
+  return String(value).padStart(2, "0");
 }
 
-function changeTheme() {
-  const backgroundColors = [
-    "#f8fafc",
-    "#fff7ed",
-    "#eff6ff",
-    "#ecfdf5",
-    "#fdf2f8",
-  ];
-  const accentColors = ["#6366f1", "#d946ef", "#10b981", "#f97316", "#0ea5e9"];
-  const randomIndex = Math.floor(Math.random() * backgroundColors.length);
+function updateClock() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
 
-  document.body.style.background = `linear-gradient(180deg, ${backgroundColors[randomIndex]} 0%, #f9fafb 100%)`;
-  document.documentElement.style.setProperty("--brand", accentColors[randomIndex]);
-  document.documentElement.style.setProperty("--brand-dark", accentColors[randomIndex]);
+  const hour12 = hours % 12 || 12;
+  const period = hours >= 12 ? "PM" : "AM";
+
+  hoursElement.textContent = formatTimePart(hour12);
+  minutesElement.textContent = formatTimePart(minutes);
+  secondsElement.textContent = formatTimePart(seconds);
+  ampmElement.textContent = period;
+
+  const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(now);
+
+  dateTextElement.textContent = formattedDate.replace(/(^\w)/, (letter) =>
+    letter.toUpperCase()
+  );
+
+  document.title = `${formatTimePart(hour12)}:${formatTimePart(minutes)}:${formatTimePart(seconds)} ${period} | Relógio Digital`;
 }
 
-incrementButton.addEventListener("click", () => {
-  count += 1;
-  updateCount();
-});
-
-decrementButton.addEventListener("click", () => {
-  count -= 1;
-  updateCount();
-});
-
-resetButton.addEventListener("click", () => {
-  count = 0;
-  updateCount();
-});
-
-messageInput.addEventListener("input", () => {
-  const message = messageInput.value.trim();
-  messageOutput.textContent = message || "Sua mensagem aparecerá aqui.";
-});
-
-themeButton.addEventListener("click", changeTheme);
-
-updateCount();
+updateClock();
+setInterval(updateClock, 1000);
