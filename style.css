@@ -1,12 +1,13 @@
 /* Estilos principais do projeto */
 :root {
-  --bg: #f6f8ff;
+  --bg: #eef6ff;
   --surface: #ffffff;
-  --surface-strong: #eef2ff;
-  --text: #1f2937;
-  --text-muted: #475569;
-  --brand: #6366f1;
-  --brand-dark: #4338ca;
+  --surface-strong: #f8faff;
+  --text: #152238;
+  --text-muted: #5b6b8a;
+  --brand: #3b82f6;
+  --brand-dark: #2563eb;
+  --border: rgba(59, 130, 246, 0.16);
 }
 
 * {
@@ -16,23 +17,34 @@
 body {
   margin: 0;
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(180deg, #eef2ff 0%, #f9fafb 100%);
+  background: linear-gradient(180deg, #eef6ff 0%, #f9fbff 100%);
   color: var(--text);
   min-height: 100vh;
 }
 
-img {
+img,
+svg {
   max-width: 100%;
+  display: block;
 }
 
 .container {
-  width: min(1100px, 100% - 2rem);
+  width: min(1140px, 100% - 2rem);
   margin: 0 auto;
 }
 
 .hero {
-  padding: 3rem 0 2rem;
-  text-align: center;
+  padding: 2.5rem 0 1.5rem;
+}
+
+.hero__inner {
+  display: grid;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero__text {
+  max-width: 620px;
 }
 
 .eyebrow {
@@ -40,102 +52,146 @@ img {
   margin-bottom: 0.75rem;
   color: var(--brand-dark);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
 h1 {
-  margin: 0;
-  font-size: clamp(2.2rem, 3vw, 3.5rem);
-  line-height: 1.05;
+  margin: 0 0 1rem;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  line-height: 1.02;
 }
 
 p {
-  line-height: 1.7;
+  line-height: 1.8;
+  margin: 0;
 }
 
-main {
+.schedule-layout {
   display: grid;
   gap: 1.5rem;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
 }
 
 .card {
   background: var(--surface);
-  border: 1px solid rgba(99, 102, 241, 0.15);
-  border-radius: 1.25rem;
-  padding: 1.8rem;
-  box-shadow: 0 25px 40px rgba(15, 23, 42, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 28px 56px rgba(15, 23, 42, 0.08);
 }
 
-.card--accent {
-  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+.form-card,
+.schedule-card {
+  min-height: 420px;
 }
 
-h2 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-  font-size: 1.35rem;
+.schedule-header {
+  margin-bottom: 1rem;
 }
 
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+.field-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  color: var(--text);
   margin-top: 1rem;
 }
 
-button,
-input {
+input,
+select,
+textarea {
+  width: 100%;
+  margin-top: 0.6rem;
   border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 0.85rem;
-  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  padding: 0.95rem 1rem;
   font-size: 1rem;
   font-family: inherit;
+  background: #fff;
+  color: var(--text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-button {
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.primary-button {
+  margin-top: 1.5rem;
   background: var(--brand);
   color: white;
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-button:hover {
+.primary-button:hover {
   background: var(--brand-dark);
   transform: translateY(-1px);
 }
 
-button:active {
-  transform: translateY(0);
+.success-message {
+  margin-top: 1rem;
+  color: #047857;
+  font-weight: 600;
 }
 
-input {
-  width: 100%;
-  margin-top: 1rem;
-  background: #fff;
+.appointment-list {
+  display: grid;
+  gap: 1rem;
 }
 
-.output {
-  margin-top: 1rem;
-  padding: 1rem;
-  background: #f8fafc;
-  border-radius: 0.85rem;
+.appointment-card {
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  border-radius: 1.25rem;
+  padding: 1.35rem;
+  background: #f8fbff;
+}
+
+.appointment-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.appointment-card p {
+  margin: 0.35rem 0;
   color: var(--text-muted);
 }
 
-.counter {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 8rem;
-  height: 8rem;
-  margin-top: 1rem;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--brand-dark);
-  background: #eef2ff;
-  border-radius: 1.5rem;
+.appointment-card strong {
+  color: var(--text);
+}
+
+.appointment-card .details {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.8rem;
+}
+
+.empty-state {
+  margin: 0;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 .footer {
@@ -144,23 +200,40 @@ input {
   color: var(--text-muted);
 }
 
-@media (min-width: 720px) {
-  main {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.hero__image {
+  display: grid;
+  place-items: center;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.hero__image svg {
+  width: 100%;
+  max-width: 360px;
+}
+
+@media (min-width: 840px) {
+  .hero__inner {
+    grid-template-columns: 1fr 400px;
   }
 
-  .hero {
-    padding-top: 4rem;
+  .schedule-layout {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .field-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 520px) {
   .card {
-    padding: 1.4rem;
+    padding: 1.6rem;
   }
 
-  .button-row {
-    flex-direction: column;
-    align-items: stretch;
+  .hero {
+    padding-top: 1.8rem;
   }
 }

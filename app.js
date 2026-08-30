@@ -1,54 +1,90 @@
-const countElement = document.getElementById("count");
-const incrementButton = document.getElementById("increment");
-const decrementButton = document.getElementById("decrement");
-const resetButton = document.getElementById("reset");
-const messageInput = document.getElementById("messageInput");
-const messageOutput = document.getElementById("messageOutput");
-const themeButton = document.getElementById("themeButton");
+const appointmentForm = document.getElementById("appointmentForm");
+const appointmentList = document.getElementById("appointmentList");
+const successMessage = document.getElementById("successMessage");
 
-let count = 0;
+const storageKey = "petShopAppointments";
+const appointments = JSON.parse(localStorage.getItem(storageKey) || "[]");
 
-function updateCount() {
-  countElement.textContent = count;
-  countElement.style.color = count === 0 ? "#4338ca" : count > 0 ? "#22c55e" : "#ef4444";
+function formatDate(dateValue) {
+  const date = new Date(dateValue);
+  return date.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
-function changeTheme() {
-  const backgroundColors = [
-    "#f8fafc",
-    "#fff7ed",
-    "#eff6ff",
-    "#ecfdf5",
-    "#fdf2f8",
-  ];
-  const accentColors = ["#6366f1", "#d946ef", "#10b981", "#f97316", "#0ea5e9"];
-  const randomIndex = Math.floor(Math.random() * backgroundColors.length);
+function createAppointmentCard(appointment) {
+  const card = document.createElement("article");
+  card.className = "appointment-card";
 
-  document.body.style.background = `linear-gradient(180deg, ${backgroundColors[randomIndex]} 0%, #f9fafb 100%)`;
-  document.documentElement.style.setProperty("--brand", accentColors[randomIndex]);
-  document.documentElement.style.setProperty("--brand-dark", accentColors[randomIndex]);
+  const title = document.createElement("h3");
+  title.textContent = `${appointment.petName} — ${appointment.service}`;
+  card.appendChild(title);
+
+  const owner = document.createElement("p");
+  owner.innerHTML = `<strong>Responsável:</strong> ${appointment.ownerName}`;
+  card.appendChild(owner);
+
+  const contacts = document.createElement("div");
+  contacts.className = "details";
+  contacts.innerHTML = `
+    <p><strong>Data:</strong> ${formatDate(appointment.date)}</p>
+    <p><strong>Horário:</strong> ${appointment.time}</p>
+    <p><strong>Telefone:</strong> ${appointment.phone}</p>
+  `;
+  card.appendChild(contacts);
+
+  if (appointment.notes) {
+    const notes = document.createElement("p");
+    notes.innerHTML = `<strong>Observações:</strong> ${appointment.notes}`;
+    card.appendChild(notes);
+  }
+
+  return card;
 }
 
-incrementButton.addEventListener("click", () => {
-  count += 1;
-  updateCount();
+function renderAppointments() {
+  appointmentList.innerHTML = "";
+
+  if (!appointments.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty-state";
+    empty.textContent = "Nenhum agendamento registrado ainda.";
+    appointmentList.appendChild(empty);
+    return;
+  }
+
+  appointments.forEach((appointment) => {
+    appointmentList.appendChild(createAppointmentCard(appointment));
+  });
+}
+
+function saveAppointments() {
+  localStorage.setItem(storageKey, JSON.stringify(appointments));
+}
+
+function showSuccess() {
+  successMessage.hidden = false;
+  setTimeout(() => {
+    successMessage.hidden = true;
+  }, 2800);
+}
+
+appointmentForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const appointment = {
+    petName: document.getElementById("petName").value.trim(),
+    ownerName: document.getElementById("ownerName").value.trim(),
+    service: document.getElementById("serviceType").value,
+    date: document.getElementById("appointmentDate").value,
+    time: document.getElementById("appointmentTime").value,
+    phone: document.getElementById("ownerPhone").value.trim(),
+    notes: document.getElementById("notes").value.trim(),
+  };
+
+  appointments.push(appointment);
+  saveAppointments();
+  renderAppointments();
+  appointmentForm.reset();
+  showSuccess();
 });
 
-decrementButton.addEventListener("click", () => {
-  count -= 1;
-  updateCount();
-});
-
-resetButton.addEventListener("click", () => {
-  count = 0;
-  updateCount();
-});
-
-messageInput.addEventListener("input", () => {
-  const message = messageInput.value.trim();
-  messageOutput.textContent = message || "Sua mensagem aparecerá aqui.";
-});
-
-themeButton.addEventListener("click", changeTheme);
-
-updateCount();
+renderAppointments();
